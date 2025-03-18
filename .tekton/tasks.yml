@@ -1,0 +1,51 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: lint
+spec:
+  steps:
+  - name: lint-code
+    image: python:3.8
+    script: |
+      #!/bin/sh
+      pip install flake8
+      flake8 .
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: unit-tests
+spec:
+  steps:
+  - name: run-tests
+    image: python:3.8
+    script: |
+      #!/bin/sh
+      pip install -r requirements.txt
+      pytest tests/
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: cleanup
+spec:
+  steps:
+  - name: cleanup
+    image: alpine
+    script: |
+      #!/bin/sh
+      echo "Cleaning up temporary files"
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: nose-tests
+spec:
+  steps:
+  - name: run-nose-tests
+    image: python:3.8
+    script: |
+      #!/bin/sh
+      pip install nose
+      nosetests tests/
+      echo "Tests passed"

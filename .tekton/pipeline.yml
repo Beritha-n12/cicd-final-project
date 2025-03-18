@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: ci-pipeline
+spec:
+  tasks:
+  - name: lint
+    taskRef:
+      name: lint
+
+  - name: test
+    taskRef:
+      name: unit-tests
+    runAfter:
+    - lint
+
+  - name: build
+    taskRef:
+      name: build-image
+    runAfter:
+    - test
+
+  - name: deploy
+    taskRef:
+      name: deploy
+    runAfter:
+    - build

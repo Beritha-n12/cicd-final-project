@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy
+spec:
+  steps:
+  - name: deploy-app
+    image: quay.io/ocp-tools
+    script: |
+      #!/bin/sh
+      oc new-app quay.io/myrepo/my-image:latest
+      oc expose svc/my-image
