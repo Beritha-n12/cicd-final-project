@@ -90,3 +90,14 @@ oc get pods
 oc get svc
 oc get routes
 ```
+
+## Conclusion
+
+In this project, we've implemented a **CI/CD pipeline** using **GitHub Actions, Tekton, and OpenShift**. This pipeline includes:
+
+- **GitHub Actions** for linting and unit testing
+- **Tekton tasks** for linting, unit testing, and building an image
+- **An OpenShift CI Pipeline** that integrates these Tekton tasks
+- **Automated deployment** to an OpenShift cluster
+
+This project provides a complete example of how to use GitHub Actions, Tekton, and OpenShift to automate the CI/CD process for your Python project.
